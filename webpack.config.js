@@ -43,7 +43,7 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin('webpack-introduction.css'),
     new HtmlWebpackPlugin({
-      title: 'Webpack Introduction',
+      title: 'webpack Introduction',
       template: 'src/index.ejs'
     })
   ],

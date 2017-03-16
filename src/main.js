@@ -297,13 +297,13 @@ function addAttributeInElement(node, elementTarget, separator) {
 function addAttributes(section, element, previousElement, separatorElementAttributes, separatorSectionAttributes) {
 
   if (element != null && element.childNodes != undefined && element.childNodes.length > 0) {
-    previousParentElement = element;
+    var previousParentElement = element;
     for (var i = 0; i < element.childNodes.length; i++) {
-      childElement = element.childNodes[i];
+      var childElement = element.childNodes[i];
       if (i > 0) {
-        j = i - 1;
+        var j = i - 1;
         while (j >= 0) {
-          aPreviousChildElement = element.childNodes[j];
+          var aPreviousChildElement = element.childNodes[j];
           if (typeof aPreviousChildElement.setAttribute == 'function' && aPreviousChildElement.tagName != "BR") {
             previousParentElement = aPreviousChildElement;
             break;
@@ -313,7 +313,7 @@ function addAttributes(section, element, previousElement, separatorElementAttrib
       }
       parentSection = section;
       if (childElement.nodeName == "section") {
-        parentSection = childElement;
+        var parentSection = childElement;
         previousParentElement = childElement;
       }
       if (typeof childElement.setAttribute == 'function' || childElement.nodeType == Node.COMMENT_NODE) {

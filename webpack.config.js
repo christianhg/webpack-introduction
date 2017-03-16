@@ -30,15 +30,12 @@ module.exports = {
         })
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        test: /\.(eot|png|svg|ttf|woff|woff2)$/,
         use: {
           loader: 'file-loader'
         }
       }
     ]
-  },
-  node: {
-    fs: 'empty'
   },
   plugins: [
     new ExtractTextPlugin('webpack-introduction.css'),

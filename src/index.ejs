@@ -12,24 +12,460 @@
   <div class="reveal">
     <div class="slides">
       <section>
+        <img src="<%= require('./images/webpack-logo-logotype.svg') %>">
+
+        <em>Bundling JavaScript modules with webpack</em>
+      </section>
+      <section data-markdown>
+        <script type="text/template">
+          > [webpack is a] bundler for javascript and friends. [It packs] many modules into a few bundled assets. Code Splitting allows to load parts for the application on demand. Through "loaders," modules can be CommonJs, AMD, ES6 modules, CSS, Images, JSON, Coffeescript, LESS, ... and your custom stuff.
+          
+          > -- [https://github.com/webpack/webpack](https://github.com/webpack/webpack)
+        </script>
+      </section>
+      <section data-markdown>
+        <script type="text/template">
+          > webpack is a module bundler for modern JavaScript applications.
+          
+          > -- [https://webpack.js.org/concepts/](https://webpack.js.org/concepts/)
+        </script>
+      </section>
+      <section data-markdown>
+        <script type="text/template">
+          What is a **modern JavaScript application**?
+        </script>
+      </section>
+      <section data-markdown>
+        <script type="text/template">
+          **This is!**
+        </script>
+      </section>
+      <section>
+        <ul>
+          <li>ES6 modules</li>
+          <li class="fragment">reveal.js</li>
+          <li class="fragment">highlight.js</li>
+          <li class="fragment">marked</li>
+          <li class="fragment">Sass</li>
+          <li class="fragment">EJS</li>
+          <li class="fragment">SVGs</li>
+          <li class="fragment">Fonts</li>
+          <li class="fragment"><em>Bundled with webpack</em></li>
+        </ul>
+      </section>
+      <section>
+        <img src="<%= require('./images/webpack-bundling.png') %>">
+      </section>
+      <section data-markdown>
+        <script type="text/template">
+          Main reason: *JavaScript modules!*
+        </script>
+      </section>
+
+      <section data-markdown>
+        <script type="text/template">
+          Why modules?
+        </script>
+      </section> 
+      <section>
+        <ul>
+          <li>Namespacing</li>
+          <li class="fragment">Reuse</li>
+          <li class="fragment">Decoupling</li>
+        </ul>
+      </section>
+
+      <section data-markdown>
+        <script type="text/template">
+          Quick tour: *How to module in JavaScript*
+        </script>
+      </section> 
+      <section>
+        <pre>
+          <code data-trim>
+            // Pre-ES6 scopes:
+
+            var global = 'not so secret'
+
+            function newScope() {
+              var private = 'secret'
+            }
+
+            global
+            // => "not so secret"
+
+            private 
+            // => Uncaught ReferenceError: private is not defined
+          </code>
+        </pre>
+      </section>
+      <!--<section data-markdown>
+        <script type="text/template">
+          - Vanilla pre-ES6 module
+          - AMD module
+          - CommonJS module
+          - ES6 module
+        </script>
+      </section>-->
+      <section>
         <pre>
           <code data-trim data-noescape>
+            // Vanilla pre-ES6 module
+
+            var MouseCounterModule = function(jQuery) {
+              var numClicks = 0
+              var handleClick = function() {
+                alert(++numClicks)
+              }
+
+              return {
+                countClicks: function() {
+                  jQuery(document).on('click', handleClick)
+                }
+              }
+            }
+
+            MouseCounterModule($).countClicks()
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim data-noescape>
+            // AMD module
+
+            define('MouseCounterModule', ['jQuery'], function($) {
+              var numClicks = 0
+              var handleClick = function() {
+                alert(++numClicks)
+              }
+
+              return {
+                countClicks: function() {
+                  $(document).on('click', handleClick)
+                }
+              }
+            }
+
+            require(['MouseCounterModule'], function(mouseCounterModule) {
+              mouseCounterModule.countClicks()
+            })
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim data-noescape>
+            // CommonJS module
+
+            // mouseCounter.js
+            var $ = require('jQuery')
+
+            var numClicks = 0
+            var handleClick = function() {
+              alert(++numClicks)
+            }
+
             module.exports = {
-              x === y
+              countClicks: function() {
+                $(document).on('click', handleClick)
+              }
+            }
+
+            // anotherFile.js
+            var mouseCounter = require('mouseCounter.js')
+
+            mouseCounter.countClicks()
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim data-noescape>
+            // ES6 module
+
+            // mouseCounter.js
+            import $ from 'jQuery'
+
+            var numClicks = 0
+            var handleClick = function() {
+              alert(++numClicks)
+            }
+
+            export var mouseCounter = {
+              countClicks: function() {
+                $(document).on('click', handleClick)
+              }
+            }
+
+            // anotherFile.js
+            import { mouseCounter } from 'mouseCounter.js'
+
+            mouseCounter.countClicks()
+          </code>
+        </pre>
+      </section>
+      <section data-markdown>
+        <script type="text/template">
+          ES6 modules:
+          - File based
+          - Singletons
+          - 
+        </script>
+      </section>
+
+      <section data-markdown>
+        <script type="text/template">
+          *Back to webpack!*
+        </script>
+      </section>
+      <section>
+        <pre>
+          <code data-trim>
+            // bar.js
+            export default function bar() {
+              //
             }
           </code>
         </pre>
       </section>
       <section>
-        <img src="<%= require('./images/webpack-logo-logotype.svg') %>">
+        <pre>
+          <code data-trim data-noescape>
+            <fade>// bar.js
+            export default function bar() {
+              //
+            }</fade>
+
+            // app.js
+            import bar from './bar';
+
+            bar();
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim data-noescape>
+            <fade>// bar.js
+            export default function bar() {
+              //
+            }
+
+            // app.js
+            import bar from './bar';
+
+            bar();</fade>
+
+            // webpack.config.js
+            module.exports = {
+              entry: './app.js',
+              output: {
+                filename: 'bundle.js'
+              }
+            }
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim data-noescape>
+            <fade>// bar.js
+            export default function bar() {
+              //
+            }
+
+            // app.js
+            import bar from './bar';
+
+            bar();
+
+            // webpack.config.js
+            module.exports = {
+              entry: './app.js',
+              output: {
+                filename: 'bundle.js'
+              }
+            }</fade>
+
+            // index.html
+            &lt;script src="bundle.js"&gt;&lt;/script&gt;
+          </code>
+        </pre>
+      </section>
+
+      <section>
+        <pre>
+          <code data-trim>
+            npm install --save-dev webpack webpack-dev-server
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim>
+            // package.json
+            
+            {
+              "scripts": {
+                "dev": "webpack-dev-server",
+                "dist": "webpack"
+              }
+            }
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim data-noescape>
+            // package.json
+            
+            {
+              "scripts": {
+                "dev": "webpack-dev-server",
+                "dist": "webpack<mark> -p</mark>"
+              }
+            }
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim>
+            // webpack.config.js
+
+            module.exports = {}
+          </code>
+        </pre>
       </section>
       <section data-markdown>
         <script type="text/template">
-          ## Testing markdown
-
-          A paragraph with some text and a [link](http://webpack.js.org).
+          Four Core Concepts:
+          - Entry
+          - Output
+          - Loaders
+          - Plugins
         </script>
       </section>
+      <section>
+        <pre>
+          <code data-trim data-noescape>
+            module.exports = {
+              <mark>entry: './src/main.js'</mark>
+            }
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim data-noescape>
+            // webpack.config.js
+            
+            <mark>const path = require('path')</mark>
+
+            module.exports = {
+              entry: './src/main.js',
+              <mark>output: {
+                path: path.resolve(__dirname, 'dist'),
+                filename: 'webpack-configuration.js'
+              }</mark>
+            }
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim data-noescape>
+            const path = require('path')
+
+            module.exports = {
+              entry: './src/main.js',
+              output: {
+                path: path.resolve(__dirname, 'dist'),
+                filename: 'webpack-configuration.js'
+              }<mark>,
+              module: {
+                rules: [{
+                  test: /\.(css|scss)$/,
+                  use: [
+                    {
+                      loader: 'css-loader'
+                    },
+                    {
+                      loader: 'sass-loader'
+                    }
+                  ]
+                }]
+              }</mark>
+            }
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim data-noescape>
+            const path = require('path')
+            <mark>const HtmlWebpackPlugin = require('html-webpack-plugin')</mark>
+
+            module.exports = {
+              entry: './src/main.js',
+              output: {
+                path: path.resolve(__dirname, 'dist'),
+                filename: 'webpack-configuration.js'
+              },
+              module: {
+                rules: [{
+                  ...
+                }],
+              }<mark>,
+              new HtmlWebpackPlugin({
+                title: 'webpack Introduction',
+                template: 'src/index.ejs'
+              })</mark>
+            }
+          </code>
+        </pre>
+      </section>
+
+      
+      
+      
+      <section>
+        <pre>
+          <code data-trim>
+            <section>
+              &lt;img src="&lt;%= require('./webpack-logo-logotype.svg') %&gt;"&gt;
+            </section>
+          </code>
+        </pre>
+      </section>
+
+
+      <section>
+        <pre>
+          <code data-trim>
+            ...
+            rules: [
+              {
+                enforce: 'pre',
+                test: /\.ts$/,
+                use: ['tslint-loader']
+              },
+              {
+                test: /\.ts$/,
+                use: ['awesome-typescript-loader', 'source-map-loader']
+              },
+              {
+                enforce: 'post',
+                test: /\.ts$/,
+                use: ['babel-loader', 'source-map-loader']
+              }
+            ]
+            ...
+          </code>
+        </pre>
+      </section>
+      
     </div>
     <footer type="contentinfo">
       <img src="<%= require('./images/webpack-logo.svg') %>">

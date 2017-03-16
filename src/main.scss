@@ -1,4 +1,4 @@
-// Reveal.js overrides 
+// Reveal.js overrides
 
 footer {
   bottom: 20px;
@@ -6,4 +6,8 @@ footer {
   height: 50px;
   position: absolute;
   width: 50px;
+}
+
+.reveal pre {
+  box-shadow: none;
 }

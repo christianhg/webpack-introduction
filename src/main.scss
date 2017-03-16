@@ -1,5 +1,14 @@
 // Reveal.js overrides
 
+@font-face {
+  font-family: 'FiraCode';
+  src: url('./fonts/FiraCode-Regular.eot'); /* IE9 Compat Modes */
+  src: url('./fonts/FiraCode-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('./fonts/FiraCode-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./fonts/FiraCode-Regular.woff') format('woff'), /* Pretty Modern Browsers */
+       url('./fonts/FiraCode-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
 footer {
   bottom: 20px;
   left: 20px;
@@ -10,4 +19,10 @@ footer {
 
 .reveal pre {
   box-shadow: none;
+}
+
+.reveal pre,
+.reveal code {
+  font-family: 'FiraCode';
+  font-variant-ligatures: initial;
 }

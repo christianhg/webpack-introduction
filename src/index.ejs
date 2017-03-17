@@ -42,7 +42,7 @@
       </section>
       <section>
         <ul>
-          <li><a href="https://webpack.js.org/configuration/">Extremely configurable</a></li>
+          <li><a href="https://webpack.js.org/configuration/" target="blank">Extremely configurable</a></li>
           <li class="fragment">webpack.config.js</li>
           <li class="fragment">NPM modules</li>
           <li class="fragment">Everything is a depency</li>
@@ -69,7 +69,7 @@
           <li class="fragment">marked</li>
           <li class="fragment">Sass</li>
           <li class="fragment">EJS</li>
-          <li class="fragment">SVGs</li>
+          <li class="fragment">SVGs and PNGs</li>
           <li class="fragment">Fonts</li>
           <li class="fragment"><em>Bundled with webpack</em></li>
         </ul>
@@ -132,13 +132,18 @@
       <section>
         <img src="<%= require('./images/gulp.png') %>">
       </section>
+       <section data-markdown>
+        <script type="text/template">
+          Everything is a *dependency*?
+        </script>
+      </section>
       <section>
         <pre>
           <code data-trim>
             // index.ejs
 
             <section>
-              &lt;img src="&lt;%= require('./webpack-logo-logotype.svg') %&gt;"&gt;
+              &lt;img src="&lt;%= require('./images/gulp.png') %&gt;"&gt;
             </section>
           </code>
         </pre>
@@ -166,6 +171,16 @@
 
             import Reveal from 'reveal.js'
             import markdown from './markdown'
+            import './highlight'
+
+            // highlight.js
+
+            import hljs from 'highlight.js'
+            import 'highlight.js/styles/solarized-light.css'
+
+            // markdown.js
+
+            import marked from 'marked'
           </code>
         </pre>
       </section>
@@ -267,7 +282,8 @@
           <li class="fragment">Singletons</li>
           <li class="fragment">Own scope</li>
           <li class="fragment">Used by TypeScript</li>
-          <li class="fragment">Not ready yet</li>
+          <li class="fragment">And...</li>
+          <li class="fragment"><em>Not ready yet</em></li>
         </ul>
       </section>
       <section>
@@ -338,7 +354,7 @@
           <code data-trim>
             // bar.js
             export function bar() {
-              //
+              // ...
             }
           </code>
         </pre>
@@ -348,7 +364,7 @@
           <code data-trim data-noescape>
             <fade>// bar.js
             export function bar() {
-              //
+              // ...
             }</fade>
 
             // app.js
@@ -363,7 +379,7 @@
           <code data-trim data-noescape>
             <fade>// bar.js
             export function bar() {
-              //
+              // ..
             }
 
             // app.js
@@ -386,7 +402,7 @@
           <code data-trim data-noescape>
             <fade>// bar.js
             export function bar() {
-              //
+              // ...
             }
 
             // app.js
@@ -553,7 +569,6 @@
           </code>
         </pre>
       </section>
-
       <section>
         <pre>
           <code data-trim data-noescape>
@@ -594,6 +609,42 @@
             |   |   |-- store.ts
             |   |   `-- storeHelpers.ts
             |   `-- storylines.module.ts
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim data-noescape>
+            import { module } from 'angular';
+
+            import { EditorComponent } from './components/editor.component';
+            import { FactBoxComponent } from './components/storyElements/factBox.component';
+            import { GalleryComponent } from './components/storyElements/gallery.component';
+            import { HeadlineComponent } from './components/storyElements/headline.component';
+            import { ImageComponent } from './components/storyElements/image.component';
+            import { ParagraphComponent } from './components/storyElements/paragraph.component';
+            import { PullQuoteComponent } from './components/storyElements/pullQuote.component';
+            import { RteDirective } from './core/rte.directive';
+            import { StateMonitorSidePanelComponent } from './components/stateMonitorSidePanel.component';
+            import { StoriesSidePanelComponent } from './components/storiesSidePanel.component';
+            import { StorylineComponent } from './components/storyline.component';
+            import { StorylineService } from './services/storyline.service';
+
+            import '../css/storylines.scss';
+
+            module('storylines', [])
+                .component('storyElementFactBox', new FactBoxComponent())
+                .component('storyElementGallery', new GalleryComponent())
+                .component('storyElementHeadline', new HeadlineComponent())
+                .component('storyElementImage', new ImageComponent())
+                .component('storyElementParagraph', new ParagraphComponent())
+                .component('storyElementPullQuote', new PullQuoteComponent())
+                .component('storylinesEditor', new EditorComponent())
+                .component('storylinesStateMonitorSidePanel', new StateMonitorSidePanelComponent())
+                .component('storiesSidePanel', new StoriesSidePanelComponent())
+                .component('storyline', new StorylineComponent())
+                .directive('rte', () => new RteDirective())
+                .service('storylineService', StorylineService);
           </code>
         </pre>
       </section>
@@ -764,6 +815,9 @@
             }
           </code>
         </pre>
+      </section>
+      <section>
+        <img src="<%= require('./images/webpack-logo-logotype.svg') %>">
       </section>
     </div>
     <footer type="contentinfo">

@@ -14,31 +14,52 @@
       <section>
         <img src="<%= require('./images/webpack-logo-logotype.svg') %>">
 
-        <em>Bundling JavaScript modules with webpack</em>
+        <em>Bundling <strong>JavaScript modules</strong> with <strong>webpack</strong></em>
       </section>
+      <section>
+        <ol>
+          <li>webpack overview</li>
+          <li class="fragment">JavaScript modules</li>
+          <li class="fragment">Putting it all together</li>
+        </ol>
+      </section>
+
+      <!-- Part 1: webpack overview -->
+
       <section data-markdown>
         <script type="text/template">
           > [webpack is a] bundler for javascript and friends. [It packs] many modules into a few bundled assets. Code Splitting allows to load parts for the application on demand. Through "loaders," modules can be CommonJs, AMD, ES6 modules, CSS, Images, JSON, Coffeescript, LESS, ... and your custom stuff.
-          
+
           > -- [https://github.com/webpack/webpack](https://github.com/webpack/webpack)
         </script>
       </section>
       <section data-markdown>
         <script type="text/template">
           > webpack is a module bundler for modern JavaScript applications.
-          
+
           > -- [https://webpack.js.org/concepts/](https://webpack.js.org/concepts/)
         </script>
+      </section>
+      <section>
+        <ul>
+          <li><a href="https://webpack.js.org/configuration/">Extremely configurable</a></li>
+          <li class="fragment">webpack.config.js</li>
+          <li class="fragment">NPM modules</li>
+          <li class="fragment">Everything is a depency</li>
+          <li class="fragment">Recursively builds a dependency graph</li>
+          <li class="fragment">Packages everything in few bundles</li>
+        </ul>
       </section>
       <section data-markdown>
         <script type="text/template">
           What is a **modern JavaScript application**?
         </script>
       </section>
-      <section data-markdown>
-        <script type="text/template">
-          **This is!**
-        </script>
+      <section>
+        <img src="<%= require('./images/cue.svg') %>">
+      </section>
+      <section>
+        <img src="<%= require('./images/slideception.png') %>">
       </section>
       <section>
         <ul>
@@ -54,7 +75,99 @@
         </ul>
       </section>
       <section>
+        <pre>
+          <code data-trim>
+            .
+            |-- css
+            |   `-- main.scss
+            |-- fonts
+            |   |-- FiraCode-Regular.eot
+            |   |-- FiraCode-Regular.otf
+            |   |-- FiraCode-Regular.ttf
+            |   |-- FiraCode-Regular.woff
+            |   `-- FiraCode-Regular.woff2
+            |-- images
+            |   |-- cue.svg
+            |   |-- es6-modules-compatibility.png
+            |   |-- slideception.png
+            |   |-- webpack-bundling.png
+            |   |-- webpack-logo-logotype.svg
+            |   `-- webpack-logo.svg
+            |-- index.ejs
+            `-- js
+                |-- highlight.js
+                |-- main.js
+                `-- markdown.js
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim>
+            .
+            |-- 09a5400b287f92cf38db77712d11210d.png
+            |-- 18ea36a9c87b4d597b5f86821ba000b8.png
+            |-- 3a39f8caae69895d3b2accd84ba8f774.svg
+            |-- 4d1f86fcb0a65b77d60d96e96feec828.woff
+            |-- 91295fa87df918411b49b7531da5d558.ttf
+            |-- 96621d3c37d96ad3bf792fcc848d912f.svg
+            |-- 9900a4643cc63c5d8f969d2196f72572.eot
+            |-- a25c2aac64ccad1e1954d38c2c6d84bc.svg
+            |-- b230d1101a895d8950b4df14fa57119e.png
+            |-- cd382dc8a9d6317864b5810a320effc5.woff
+            |-- e40dc3166f510d9a598fefb3750d8a78.woff2
+            |-- f79d9792d54ba709714100860066aae9.eot
+            |-- fa1f8c8961adca519738d9518139579c.ttf
+            |-- index.html
+            |-- webpack-introduction.css
+            |-- webpack-introduction.css.map
+            |-- webpack-introduction.js
+            `-- webpack-introduction.js.map
+          </code>
+        </pre>
+      </section>
+      <section>
         <img src="<%= require('./images/webpack-bundling.png') %>">
+      </section>
+      <section>
+        <img src="<%= require('./images/gulp.png') %>">
+      </section>
+      <section>
+        <pre>
+          <code data-trim>
+            // index.ejs
+
+            <section>
+              &lt;img src="&lt;%= require('./webpack-logo-logotype.svg') %&gt;"&gt;
+            </section>
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim>
+            // main.scss
+
+            @font-face {
+              font-family: 'FiraCode';
+              src: url('../fonts/FiraCode-Regular.eot');
+              src: url('../fonts/FiraCode-Regular.eot?#iefix') format('embedded-opentype'),
+                  url('../fonts/FiraCode-Regular.woff2') format('woff2'),
+                  url('../fonts/FiraCode-Regular.woff') format('woff'),
+                  url('../fonts/FiraCode-Regular.ttf') format('truetype');
+            }
+          </code>
+        </pre>
+      </section>
+       <section>
+        <pre>
+          <code data-trim>
+            // main.js
+
+            import Reveal from 'reveal.js'
+            import markdown from './markdown'
+          </code>
+        </pre>
       </section>
       <section data-markdown>
         <script type="text/template">
@@ -62,11 +175,13 @@
         </script>
       </section>
 
+      <!-- Part 2: JavaScript modules -->
+
       <section data-markdown>
         <script type="text/template">
           Why modules?
         </script>
-      </section> 
+      </section>
       <section>
         <ul>
           <li>Namespacing</li>
@@ -79,34 +194,26 @@
         <script type="text/template">
           Quick tour: *How to module in JavaScript*
         </script>
-      </section> 
+      </section>
       <section>
         <pre>
           <code data-trim>
             // Pre-ES6 scopes:
 
-            var global = 'not so secret'
+            var public = 'not so secret'
 
             function newScope() {
               var private = 'secret'
             }
 
-            global
+            public
             // => "not so secret"
 
-            private 
+            private
             // => Uncaught ReferenceError: private is not defined
           </code>
         </pre>
       </section>
-      <!--<section data-markdown>
-        <script type="text/template">
-          - Vanilla pre-ES6 module
-          - AMD module
-          - CommonJS module
-          - ES6 module
-        </script>
-      </section>-->
       <section>
         <pre>
           <code data-trim data-noescape>
@@ -154,30 +261,17 @@
         </pre>
       </section>
       <section>
-        <pre>
-          <code data-trim data-noescape>
-            // CommonJS module
-
-            // mouseCounter.js
-            var $ = require('jQuery')
-
-            var numClicks = 0
-            var handleClick = function() {
-              alert(++numClicks)
-            }
-
-            module.exports = {
-              countClicks: function() {
-                $(document).on('click', handleClick)
-              }
-            }
-
-            // anotherFile.js
-            var mouseCounter = require('mouseCounter.js')
-
-            mouseCounter.countClicks()
-          </code>
-        </pre>
+        <p>ES6 modules:</p>
+        <ul>
+          <li class="fragment">File based</li>
+          <li class="fragment">Singletons</li>
+          <li class="fragment">Own scope</li>
+          <li class="fragment">Used by TypeScript</li>
+          <li class="fragment">Not ready yet</li>
+        </ul>
+      </section>
+      <section>
+        <img src="<%= require('./images/es6-modules-compatibility.png') %>">
       </section>
       <section>
         <pre>
@@ -205,14 +299,34 @@
           </code>
         </pre>
       </section>
-      <section data-markdown>
-        <script type="text/template">
-          ES6 modules:
-          - File based
-          - Singletons
-          - 
-        </script>
+      <section>
+        <pre>
+          <code data-trim data-noescape>
+            // CommonJS module
+
+            // mouseCounter.js
+            var $ = require('jQuery')
+
+            var numClicks = 0
+            var handleClick = function() {
+              alert(++numClicks)
+            }
+
+            module.exports = {
+              countClicks: function() {
+                $(document).on('click', handleClick)
+              }
+            }
+
+            // anotherFile.js
+            var mouseCounter = require('mouseCounter.js')
+
+            mouseCounter.countClicks()
+          </code>
+        </pre>
       </section>
+
+      <!-- Part 3: Putting it all together -->
 
       <section data-markdown>
         <script type="text/template">
@@ -223,7 +337,7 @@
         <pre>
           <code data-trim>
             // bar.js
-            export default function bar() {
+            export function bar() {
               //
             }
           </code>
@@ -233,12 +347,12 @@
         <pre>
           <code data-trim data-noescape>
             <fade>// bar.js
-            export default function bar() {
+            export function bar() {
               //
             }</fade>
 
             // app.js
-            import bar from './bar';
+            import { bar } from './bar';
 
             bar();
           </code>
@@ -248,12 +362,12 @@
         <pre>
           <code data-trim data-noescape>
             <fade>// bar.js
-            export default function bar() {
+            export function bar() {
               //
             }
 
             // app.js
-            import bar from './bar';
+            import { bar } from './bar';
 
             bar();</fade>
 
@@ -271,12 +385,12 @@
         <pre>
           <code data-trim data-noescape>
             <fade>// bar.js
-            export default function bar() {
+            export function bar() {
               //
             }
 
             // app.js
-            import bar from './bar';
+            import { bar } from './bar';
 
             bar();
 
@@ -293,42 +407,6 @@
           </code>
         </pre>
       </section>
-
-      <section>
-        <pre>
-          <code data-trim>
-            npm install --save-dev webpack webpack-dev-server
-          </code>
-        </pre>
-      </section>
-      <section>
-        <pre>
-          <code data-trim>
-            // package.json
-            
-            {
-              "scripts": {
-                "dev": "webpack-dev-server",
-                "dist": "webpack"
-              }
-            }
-          </code>
-        </pre>
-      </section>
-      <section>
-        <pre>
-          <code data-trim data-noescape>
-            // package.json
-            
-            {
-              "scripts": {
-                "dev": "webpack-dev-server",
-                "dist": "webpack<mark> -p</mark>"
-              }
-            }
-          </code>
-        </pre>
-      </section>
       <section>
         <pre>
           <code data-trim>
@@ -338,14 +416,14 @@
           </code>
         </pre>
       </section>
-      <section data-markdown>
-        <script type="text/template">
+      <section>
+        <ul>
           Four Core Concepts:
-          - Entry
-          - Output
-          - Loaders
-          - Plugins
-        </script>
+          <li class="fragment">Entry</li>
+          <li class="fragment">Output</li>
+          <li class="fragment">Loaders</li>
+          <li class="fragment">Plugins</li>
+        </ul>
       </section>
       <section>
         <pre>
@@ -360,7 +438,7 @@
         <pre>
           <code data-trim data-noescape>
             // webpack.config.js
-            
+
             <mark>const path = require('path')</mark>
 
             module.exports = {
@@ -426,46 +504,267 @@
           </code>
         </pre>
       </section>
-
-      
-      
-      
+      <section data-markdown>
+        <script type="text/template">
+          CUE Storyline setup
+        </script>
+      </section>
       <section>
         <pre>
           <code data-trim>
-            <section>
-              &lt;img src="&lt;%= require('./webpack-logo-logotype.svg') %&gt;"&gt;
-            </section>
+            npm install --save-dev webpack
+            npm install --save-dev webpack-dev-server
           </code>
         </pre>
       </section>
-
-
       <section>
         <pre>
           <code data-trim>
-            ...
-            rules: [
-              {
-                enforce: 'pre',
-                test: /\.ts$/,
-                use: ['tslint-loader']
-              },
-              {
-                test: /\.ts$/,
-                use: ['awesome-typescript-loader', 'source-map-loader']
-              },
-              {
-                enforce: 'post',
-                test: /\.ts$/,
-                use: ['babel-loader', 'source-map-loader']
+            // package.json
+
+            {
+              "scripts": {
+                "dev": "webpack-dev-server",
+                "dist": "webpack"
               }
-            ]
-            ...
+            }
           </code>
         </pre>
       </section>
-      
+      <section>
+        <pre>
+          <code data-trim data-noescape>
+            // package.json
+
+            {
+              "scripts": {
+                "dev": "webpack-dev-server",
+                "dist": "webpack<mark> -p</mark>"
+              }
+            }
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim data-noescape>
+            npm run dev
+            npm run dist
+          </code>
+        </pre>
+      </section>
+
+      <section>
+        <pre>
+          <code data-trim data-noescape>
+            .
+            |-- css
+            |   `-- storylines.scss
+            |-- fonts
+            |   `-- storylines.woff
+            |-- js
+            |   |-- components
+            |   |   |-- editor.component.ts
+            |   |   |-- stateMonitorSidePanel.component.ts
+            |   |   |-- storiesSidePanel.component.ts
+            |   |   |-- storyElements
+            |   |   |   |-- factBox.component.ts
+            |   |   |   |-- gallery.component.ts
+            |   |   |   |-- headline.component.ts
+            |   |   |   |-- image.component.ts
+            |   |   |   |-- paragraph.component.ts
+            |   |   |   `-- pullQuote.component.ts
+            |   |   `-- storyline.component.ts
+            |   |-- core
+            |   |   |-- maybe.ts
+            |   |   |-- rte.directive.ts
+            |   |   `-- safeApply.ts
+            |   |-- services
+            |   |   `-- storyline.service.ts
+            |   |-- state
+            |   |   |-- actions
+            |   |   |   |-- paragraph.actions.ts
+            |   |   |   |-- storyElements.actions.ts
+            |   |   |   |-- storylineWithTemplate.actions.ts
+            |   |   |   `-- storylines.actions.ts
+            |   |   |-- reducers
+            |   |   |   |-- storyElements.reducer.ts
+            |   |   |   `-- storylines.reducer.ts
+            |   |   |-- state.ts
+            |   |   |-- store.ts
+            |   |   `-- storeHelpers.ts
+            |   `-- storylines.module.ts
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim data-noescape>
+            .
+            |-- 9d1d1c7c17fa917d019602aeef37c965.woff
+            |-- storylines.css
+            |-- storylines.css.map
+            |-- storylines.js
+            `-- storylines.js.map
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim>
+            // webpack.config.babel.js
+
+            export default {}
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim data-noescape>
+            // webpack.config.babel.js
+
+            {
+              entry: './src/js/storylines.module.ts',
+              externals: {
+                '_': 'lodash',
+                'angular': 'angular'
+              },
+              output: {
+                path: path.resolve(__dirname, 'dist'),
+                filename: 'storylines.js'
+              }
+            }
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code data-trim>
+            // webpack.config.babel.js
+
+            {
+              rules: [
+                ...
+                {
+                  enforce: 'pre',
+                  test: /\.ts$/,
+                  use: ['tslint-loader']
+                },
+                {
+                  test: /\.ts$/,
+                  use: ['awesome-typescript-loader', 'source-map-loader']
+                },
+                {
+                  enforce: 'post',
+                  test: /\.ts$/,
+                  use: ['babel-loader', 'source-map-loader']
+                }
+                ...
+              ]
+            }
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code>
+            npm install --save-dev tslint-loader
+            npm install --save-dev source-map-loader
+            npm install --save-dev awesome-typescript-loader
+            npm install --save-dev babel-loader
+          </code>
+        </pre>
+      </section>
+      <section data-markdown>
+        <script type="text/template">
+          - TSLint config
+          - TypeScript config
+          - Babel config
+        </script>
+      </section>
+      <section>
+        <pre>
+          <code>
+            npm install --save-dev tslint
+
+            // webpack.config.js
+
+            {
+              enforce: 'pre',
+              test: /\.ts$/,
+              use: ['tslint-loader']
+            }
+
+            // tslint.json
+
+            {
+              "rules": {
+                ...
+              }
+            }
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code>
+            npm install --save-dev typescript
+
+            // webpack.config.js
+
+            {
+              test: /\.ts$/,
+              use: ['awesome-typescript-loader', 'source-map-loader']
+            },
+
+            // tsconfig.json
+
+            {
+              "compilerOptions": {
+                "allowUnreachableCode": false,
+                "module": "commonjs",
+                "skipLibCheck": true,
+                "sourceMap": true,
+                "strictNullChecks": true,
+                "target": "es6"
+              }
+            }
+          </code>
+        </pre>
+      </section>
+      <section>
+        <pre>
+          <code>
+            npm install --save-dev babel-core
+            npm install --save-dev babel-plugin-angularjs-annotate
+            npm install --save-dev babel-plugin-transform-object-rest-spread
+            npm install --save-dev babel-plugin-transform-runtime babel-preset-es2015
+
+            // webpack.config.js
+
+            {
+              enforce: 'post',
+              test: /\.ts$/,
+              use: ['babel-loader', 'source-map-loader']
+            }
+
+            // package.json
+
+            {
+              "babel": {
+                "plugins": [
+                  "angularjs-annotate",
+                  "transform-object-rest-spread",
+                  "transform-runtime"
+                ],
+                "presets": [
+                  "es2015"
+                ]
+              }
+            }
+          </code>
+        </pre>
+      </section>
     </div>
     <footer type="contentinfo">
       <img src="<%= require('./images/webpack-logo.svg') %>">

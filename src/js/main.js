@@ -8,4 +8,4 @@ Reveal.initialize()
 
 markdown.initialize(Reveal)
 
-import './highlight.js'
+import './highlight'

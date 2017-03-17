@@ -9,7 +9,7 @@ module.exports = {
     port: 9000
   },
   devtool: 'cheap-module-source-map',
-  entry: './src/main.js',
+  entry: './src/js/main.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'webpack-introduction.js'
